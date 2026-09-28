@@ -1,15 +1,3 @@
----
-title: Flappy Bird DQN
-emoji: 🐦
-colorFrom: green
-colorTo: blue
-sdk: gradio
-sdk_version: 6.28.0
-python_version: "3.11"
-app_file: app.py
-pinned: false
----
-
 # 🐦 Flappy Bird — Deep Q-Network (PyTorch)
 
 A Deep Q-Learning agent that learns to play Flappy Bird from scratch, built with PyTorch and
@@ -17,7 +5,10 @@ A Deep Q-Learning agent that learns to play Flappy Bird from scratch, built with
 
 ![demo](assets/demo.gif)
 
-**🎮 Live demo:** _add your Hugging Face Space link here_
+**🎮 Live demo:** https://flappy-bird-dqn-game.onrender.com
+
+> The demo runs on a free Render instance, which sleeps after 15 minutes without visitors.
+> If the page is slow to open, give it about a minute to wake up.
 
 ## How it works
 
@@ -48,8 +39,8 @@ navigate towards gaps, but it is not robust yet. Ideas for improvement are liste
 ## Run it
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/flappy-bird-dqn.git
-cd flappy-bird-dqn
+git clone https://github.com/Ayushsahu9903/Flappy-bird-DQN-game.git
+cd Flappy-bird-DQN-game
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 ```
 
@@ -68,19 +59,34 @@ python agent.py flappybirdv0              # watch the saved policy play in a pyg
 
 **Play it yourself:** `python game_flappy_bird.py` (space bar to flap).
 
-If you retrain, re-export the weights for the torch-free demo (see `export_weights.py`).
+If you retrain, re-export the weights for the torch-free demo:
+```bash
+python export_weights.py runs/flappybirdv0.pt runs/flappybirdv0_weights.npz
+```
+
+## Deployment
+
+The demo is deployed on [Render](https://flappy-bird-dqn-game.onrender.com) as a free web service:
+
+- **Build command:** `pip install -r requirements.txt`
+- **Start command:** `python app.py`
+- **Environment variable:** `PYTHON_VERSION=3.11.9`
+
+The web app uses NumPy-only inference (`policy.py`), so PyTorch is not installed on the server.
 
 ## Project layout
 
 ```
-agent.py              training + evaluation loop
-dqn.py                Q-network
-experience_replay.py  replay buffer
-parameters.yaml       hyperparameters
-policy.py             NumPy-only inference (used by the demo)
-app.py                Gradio web demo
-export_weights.py     .pt -> .npz converter
-runs/                 trained checkpoint (.pt) + exported weights (.npz)
+agent.py                training + evaluation loop
+dqn.py                  Q-network
+experience_replay.py    replay buffer
+parameters.yaml         hyperparameters
+policy.py               NumPy-only inference (used by the demo)
+app.py                  Gradio web demo
+export_weights.py       .pt -> .npz converter
+make_gif.py             records assets/demo.gif
+game_flappy_bird.py     play the game manually
+runs/                   trained checkpoint (.pt), exported weights (.npz), training log
 ```
 
 ## Possible improvements
