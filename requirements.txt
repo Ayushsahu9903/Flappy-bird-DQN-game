@@ -1,4 +1,4 @@
-# Runtime / demo dependencies (also used by the Hugging Face Space)
+# Runtime / demo dependencies
 gradio==6.28.0
 gymnasium>=1.0
 flappy-bird-gymnasium==0.4.0
