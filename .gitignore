@@ -1,0 +1,32 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+runs/*.log
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Byte-compiled files
+*.pyc
+
+# Jupyter checkpoints (in case any get added)
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# Keep the training log for the trained model
+!runs/flappybirdv0.log

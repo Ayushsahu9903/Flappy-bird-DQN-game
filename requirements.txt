@@ -1,0 +1,7 @@
+# Runtime / demo dependencies (also used by the Hugging Face Space)
+gradio==6.28.0
+gymnasium>=1.0
+flappy-bird-gymnasium==0.4.0
+pygame>=2.5
+numpy>=1.26
+pillow>=10.0
