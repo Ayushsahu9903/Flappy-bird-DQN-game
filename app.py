@@ -24,7 +24,10 @@ policy = NumpyPolicy()
 
 
 def play(seed):
-    seed = random.randint(0, 10_000) if seed is None else int(seed)
+    try:
+        seed = int(seed)
+    except (TypeError, ValueError):
+        seed = random.randint(0, 10_000)
     reward, score, steps, frames = rollout(policy, seed=seed, record=True, every=2)
     imgs = [Image.fromarray(f).resize((216, 384)) for f in frames]
     out = tempfile.NamedTemporaryFile(suffix=".gif", delete=False).name
@@ -39,7 +42,7 @@ with gr.Blocks(title="Flappy Bird DQN") as demo:
         "target network. Pick a seed or leave it blank for a random one."
     )
     with gr.Row():
-        seed = gr.Number(label="Seed (optional)", value=None, precision=0)
+        seed = gr.Textbox(label="Seed (leave blank for random)", placeholder="e.g. 42")
         btn = gr.Button("▶ Run agent", variant="primary")
     with gr.Row():
         video = gr.Image(label="Agent playing", type="filepath", height=420)
