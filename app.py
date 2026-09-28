@@ -1,4 +1,5 @@
 """Gradio demo: watch the trained DQN agent play Flappy Bird."""
+import os
 import random
 import tempfile
 
@@ -6,6 +7,18 @@ import gradio as gr
 from PIL import Image
 
 from policy import NumpyPolicy, rollout
+
+# Hugging Face ZeroGPU Spaces require at least one @spaces.GPU function at startup.
+# This placeholder is never called. On Render or locally the import simply fails
+# and is skipped.
+try:
+    import spaces
+
+    @spaces.GPU
+    def _gpu_placeholder():
+        return None
+except ImportError:
+    pass
 
 policy = NumpyPolicy()
 
@@ -34,4 +47,5 @@ with gr.Blocks(title="Flappy Bird DQN") as demo:
     btn.click(play, seed, [video, info])
 
 if __name__ == "__main__":
-    demo.launch()
+    # Render provides the port in the PORT environment variable and needs 0.0.0.0.
+    demo.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
